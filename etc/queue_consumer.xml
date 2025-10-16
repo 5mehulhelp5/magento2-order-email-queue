@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Queue Consumer Configuration
+ * Defines consumer that processes messages from the queue
+ *
+ * @category  Learning
+ * @package   Learning_OrderEmailQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+
+    <consumer name="orderEmailConsumer"
+              queue="order.email.queue"
+              connection="amqp"
+              maxMessages="100"
+              consumerInstance="Magento\Framework\MessageQueue\Consumer"
+              handler="Learning\OrderEmailQueue\Model\EmailProcessor::process"/>
+</config>

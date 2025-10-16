@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Queue Publisher Configuration
+ * Defines publisher for sending messages to the queue
+ *
+ * @category  Learning
+ * @package   Learning_OrderEmailQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/publisher.xsd">
+
+    <!-- Main Topic Publisher -->
+    <publisher topic="order.email.send" connection="amqp">
+        <connection name="amqp" exchange="magento"/>
+    </publisher>
+
+    <!-- Dead Letter Topic Publisher -->
+    <publisher topic="order.email.send.dead" connection="amqp">
+        <connection name="amqp" exchange="magento"/>
+    </publisher>
+</config>

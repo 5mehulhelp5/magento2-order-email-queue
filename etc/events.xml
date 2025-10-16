@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Events Configuration
+ * Observes sales order placement event
+ *
+ * @category  Learning
+ * @package   Learning_OrderEmailQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <event name="sales_order_place_after">
+        <observer name="learning_order_email_queue_observer"
+                  instance="Learning\OrderEmailQueue\Observer\OrderPlaceAfterObserver"/>
+    </event>
+</config>

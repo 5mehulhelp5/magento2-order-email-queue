@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Communication Configuration
+ * Defines topic schema and data types
+ *
+ * @category  Learning
+ * @package   Learning_OrderEmailQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
+
+    <!-- Main Topic -->
+    <topic name="order.email.send" request="string">
+        <handler name="orderEmailHandler" type="Learning\OrderEmailQueue\Model\EmailProcessor" method="process"/>
+    </topic>
+
+    <!-- Dead Letter Topic -->
+    <topic name="order.email.send.dead" request="string"/>
+</config>

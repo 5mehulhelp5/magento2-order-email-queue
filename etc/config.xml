@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Default Configuration Values
+ *
+ * @category  Learning
+ * @package   Learning_OrderEmailQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <learning_order_email_queue>
+            <general>
+                <enabled>0</enabled>
+                <max_retry_attempts>3</max_retry_attempts>
+                <batch_size>100</batch_size>
+            </general>
+            <testing>
+                <simulate_failures>0</simulate_failures>
+            </testing>
+        </learning_order_email_queue>
+    </default>
+</config>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Dependency Injection Configuration
+ *
+ * @category  Learning
+ * @package   Learning_OrderEmailQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Custom Logger Configuration -->
+    <type name="Learning\OrderEmailQueue\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+
+    <type name="Learning\OrderEmailQueue\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">OrderEmailQueueLogger</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Learning\OrderEmailQueue\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Console Commands -->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="learning_queue_status" xsi:type="object">Learning\OrderEmailQueue\Console\Command\QueueStatusCommand</item>
+                <item name="learning_queue_process" xsi:type="object">Learning\OrderEmailQueue\Console\Command\ProcessQueueCommand</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

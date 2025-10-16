@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Queue Topology Configuration
+ * Defines exchanges, queues, and bindings
+ *
+ * @category  Learning
+ * @package   Learning_OrderEmailQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+
+    <!-- Define Exchange -->
+    <exchange name="magento" type="topic" connection="amqp">
+
+        <!-- Main Queue Binding -->
+        <binding id="orderEmailBinding" topic="order.email.send" destinationType="queue" destination="order.email.queue">
+            <arguments>
+                <!-- Retry configuration -->
+                <argument name="x-dead-letter-exchange" xsi:type="string">magento</argument>
+                <argument name="x-dead-letter-routing-key" xsi:type="string">order.email.send.dead</argument>
+            </arguments>
+        </binding>
+
+        <!-- Dead Letter Queue Binding -->
+        <binding id="orderEmailDeadLetterBinding" topic="order.email.send.dead" destinationType="queue" destination="order.email.queue.dead"/>
+    </exchange>
+</config>
