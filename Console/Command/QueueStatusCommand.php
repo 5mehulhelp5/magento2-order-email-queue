@@ -15,6 +15,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\Table;
 use Magento\Framework\MessageQueue\Consumer\ConfigInterface as ConsumerConfig;
+use Magento\Framework\MessageQueue\Consumer\Config\ConsumerConfigItem;
 use Magento\Framework\Amqp\Config as AmqpConfig;
 
 /**
@@ -108,21 +109,28 @@ class QueueStatusCommand extends Command
      * Display consumer information
      *
      * @param OutputInterface $output
-     * @param array $consumer
+     * @param ConsumerConfigItem $consumer
      * @return void
      */
-    private function displayConsumerInfo(OutputInterface $output, array $consumer): void
+    private function displayConsumerInfo(OutputInterface $output, ConsumerConfigItem $consumer): void
     {
         $output->writeln('<info>Consumer Configuration:</info>');
+
+        $handlers = $consumer->getHandlers();
+        $handlerClass = 'N/A';
+
+        if (!empty($handlers) && isset($handlers[0])) {
+            $handlerClass = $handlers[0]->getType() . '::' . $handlers[0]->getMethod();
+        }
 
         $table = new Table($output);
         $table->setHeaders(['Property', 'Value']);
         $table->addRows([
-            ['Consumer Name', self::CONSUMER_NAME],
-            ['Queue', $consumer['queue'] ?? 'N/A'],
-            ['Connection', $consumer['connection'] ?? 'N/A'],
-            ['Max Messages', $consumer['max_messages'] ?? 'N/A'],
-            ['Handler', $consumer['handlers'][0]['type'] ?? 'N/A']
+            ['Consumer Name', $consumer->getName()],
+            ['Queue', $consumer->getQueue()],
+            ['Connection', $consumer->getConnection()],
+            ['Max Messages', $consumer->getMaxMessages() ?? 'N/A'],
+            ['Handler', $handlerClass],
         ]);
         $table->render();
 

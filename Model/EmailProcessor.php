@@ -125,7 +125,8 @@ class EmailProcessor
             }
 
             // Attempt to send email
-            $emailSent = $this->orderSender->send($order);
+            // Pass true for forceSyncMode to bypass queue plugin and send immediately
+            $emailSent = $this->orderSender->send($order, true);
 
             if (!$emailSent) {
                 throw new \Exception('Failed to send order confirmation email');

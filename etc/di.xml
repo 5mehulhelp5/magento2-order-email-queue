@@ -35,4 +35,11 @@
             </argument>
         </arguments>
     </type>
+
+    <!-- Plugin to prevent immediate order email sending when queue is enabled -->
+    <type name="Magento\Sales\Model\Order\Email\Sender\OrderSender">
+        <plugin name="learning_order_email_queue_sender_plugin"
+                type="Learning\OrderEmailQueue\Plugin\OrderSenderPlugin"
+                sortOrder="10"/>
+    </type>
 </config>

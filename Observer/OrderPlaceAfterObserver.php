@@ -20,7 +20,7 @@ use Magento\Store\Model\ScopeInterface;
 
 /**
  * Class OrderPlaceAfterObserver
- * Observes sales_order_place_after event
+ * Observes checkout_submit_all_after event
  */
 class OrderPlaceAfterObserver implements ObserverInterface
 {
@@ -77,10 +77,22 @@ class OrderPlaceAfterObserver implements ObserverInterface
 
         try {
             /** @var OrderInterface $order */
+            // checkout_submit_all_after passes order in the event
             $order = $observer->getEvent()->getOrder();
 
-            if (!$order || !$order->getEntityId()) {
-                $this->logger->warning('Invalid order object received in observer');
+            // Validate order object
+            if (!$order) {
+                $this->logger->warning('No order object received in observer');
+                return;
+            }
+
+            if (!$order->getEntityId()) {
+                $this->logger->warning(
+                    'Order object has no entity_id',
+                    [
+                        'increment_id' => $order->getIncrementId() ?? 'N/A',
+                    ]
+                );
                 return;
             }
 
@@ -91,7 +103,7 @@ class OrderPlaceAfterObserver implements ObserverInterface
                 'customer_email' => $order->getCustomerEmail(),
                 'customer_name' => $order->getCustomerFirstname() . ' ' . $order->getCustomerLastname(),
                 'created_at' => $order->getCreatedAt(),
-                'retry_count' => 0
+                'retry_count' => 0,
             ];
 
             // Publish message to queue
@@ -101,7 +113,7 @@ class OrderPlaceAfterObserver implements ObserverInterface
                 'Order email message published to queue',
                 [
                     'order_id' => $orderData['order_id'],
-                    'increment_id' => $orderData['increment_id']
+                    'increment_id' => $orderData['increment_id'],
                 ]
             );
         } catch (\Exception $e) {
