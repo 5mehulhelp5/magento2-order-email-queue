@@ -12,12 +12,8 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/publisher.xsd">
 
     <!-- Main Topic Publisher -->
-    <publisher topic="order.email.send" connection="amqp">
-        <connection name="amqp" exchange="magento"/>
-    </publisher>
+    <publisher topic="order.email.send"/>
 
     <!-- Dead Letter Topic Publisher -->
-    <publisher topic="order.email.send.dead" connection="amqp">
-        <connection name="amqp" exchange="magento"/>
-    </publisher>
+    <publisher topic="order.email.send.dead"/>
 </config>
