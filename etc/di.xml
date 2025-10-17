@@ -32,6 +32,7 @@
             <argument name="commands" xsi:type="array">
                 <item name="learning_queue_status" xsi:type="object">Learning\OrderEmailQueue\Console\Command\QueueStatusCommand</item>
                 <item name="learning_queue_process" xsi:type="object">Learning\OrderEmailQueue\Console\Command\ProcessQueueCommand</item>
+                <item name="learning_queue_process_dlq" xsi:type="object">Learning\OrderEmailQueue\Console\Command\ProcessDlqCommand</item>
             </argument>
         </arguments>
     </type>

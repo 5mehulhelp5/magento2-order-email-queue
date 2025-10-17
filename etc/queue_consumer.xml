@@ -17,4 +17,11 @@
               maxMessages="100"
               consumerInstance="Magento\Framework\MessageQueue\Consumer"
               handler="Learning\OrderEmailQueue\Model\EmailProcessor::process"/>
+
+    <consumer name="orderEmailDeadLetterConsumer"
+              queue="order.email.queue.dead"
+              connection="amqp"
+              maxMessages="10"
+              consumerInstance="Magento\Framework\MessageQueue\Consumer"
+              handler="Learning\OrderEmailQueue\Model\DeadLetterProcessor::process"/>
 </config>
